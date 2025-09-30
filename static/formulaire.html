@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Formulaire de Déploiement Azure</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        small {
+            display: block;
+            margin-top: 5px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+
+        .deploy-button {
+            background-color: #007bff;
+        }
+
+        .deploy-button:hover {
+            background-color: #0056b3;
+        }
+
+        .results {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+        }
+
+        .success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+
+        .error {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+
+        .deployment-section {
+            margin-top: 20px;
+            padding: 15px;
+            border: 2px solid #424abd;
+            border-radius: 4px;
+            background-color: #f8fff9;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1> Formulaire de Déploiement Azure</h1>
+
+    <form id="formulaire">
+        <div class="form-group">
+            <label>Nom Application:</label>
+            <input type="text" name="nom_app" required>
+        </div>
+
+        <div class="form-group">
+            <label>Groupe de Ressources:</label>
+            <input type="text" name="resource_group" required>
+        </div>
+
+        <div class="form-group">
+            <label>URL Dépôt Git:</label>
+            <input type="text" name="app_repo_url" required>
+        </div>
+
+        <div class="form-group">
+            <label>Branche Dépôt:</label>
+            <input type="text" name="app_repo_branch" required>
+        </div>
+
+        <div class="form-group">
+            <label>Description:</label>
+            <input type="text" name="description">
+        </div>
+
+        <!-- Type d'application fixé à web_app -->
+        <input type="hidden" name="app_type" value="web_app">
+
+        <div class="form-group" id="language_group">
+            <label>Langage de l'Application:</label>
+            <select name="app_language" id="app_language" required>
+                <option value="nodejs">Node.js (JavaScript/TypeScript)</option>
+                <option value="python">Python (Flask/Django/FastAPI)</option>
+            </select>
+        </div>
+
+        <div class="form-group" id="python_version_group" style="display: none;">
+            <label>Version Python:</label>
+            <select name="python_version" id="python_version">
+                <option value="3.11">Python 3.11 (Recommandé)</option>
+                <option value="3.10">Python 3.10</option>
+                <option value="3.9">Python 3.9</option>
+                <option value="3.8">Python 3.8</option>
+            </select>
+        </div>
+
+        <div class="form-group" id="startup_file_group">
+            <label>Fichier d'entrée de votre application (optionnel):</label>
+            <input type="text" name="startup_file" id="startup_file" placeholder="ex: server.js, app.js, index.js">
+
+        </div>
+
+        <div class="form-group">
+            <label>Région Azure:</label>
+            <select name="location" id="location" required>
+                <option value="">Sélectionnez une région</option>
+            </select>
+        </div>
+
+        <button type="submit" id="submitBtn"> Créer Configuration</button>
+    </form>
+
+    <div id="resultat" class="results hidden"></div>
+
+    <div id="deploymentSection" class="deployment-section hidden">
+        <h3> Prêt pour le Déploiement!</h3>
+        <p><strong>Job Template AWX créé avec succès!</strong></p>
+        <button id="deployBtn" class="deploy-button"> Déployer sur Azure</button>
+        <div id="deploymentResult" class="results hidden"></div>
+    </div>
+
+    <script>
+        let currentJobTemplateId = null;
+
+        const formulaire = document.getElementById('formulaire');
+        const submitBtn = document.getElementById('submitBtn');
+        const deployBtn = document.getElementById('deployBtn');
+        const resultatDiv = document.getElementById('resultat');
+        const deploymentSection = document.getElementById('deploymentSection');
+        const deploymentResult = document.getElementById('deploymentResult');
+        const appLanguageSelect = document.getElementById('app_language');
+        const pythonVersionGroup = document.getElementById('python_version_group');
+        const startupFileInput = document.getElementById('startup_file');
+        const startupHelp = document.getElementById('startup_help');
+        const locationSelect = document.getElementById('location');
+
+        // Charger les régions selon le type d'application
+        async function loadRegions(appType) {
+            try {
+                locationSelect.innerHTML = '<option value="">Chargement...</option>';
+                const response = await fetch(`/api/regions/${appType}`);
+                const data = await response.json();
+
+                locationSelect.innerHTML = '<option value="">Sélectionnez une région</option>';
+
+                Object.entries(data.regions).forEach(([displayName, azureCode]) => {
+                    const option = document.createElement('option');
+                    option.value = azureCode;
+                    option.textContent = displayName;
+                    locationSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Erreur lors du chargement des régions:', error);
+                locationSelect.innerHTML = '<option value="">Erreur de chargement</option>';
+            }
+        }
+
+        // Écouter les changements du langage d'application
+        appLanguageSelect.addEventListener('change', function () {
+            updateFormFields();
+        });
+
+        // Fonction pour mettre à jour les champs selon le langage
+        function updateFormFields() {
+            const appLanguage = appLanguageSelect.value;
+            const startupFileGroup = document.getElementById('startup_file_group');
+
+            // Toujours afficher les groupes pour les Web Apps classiques
+            startupFileGroup.style.display = 'block';
+
+            // Afficher/masquer la version Python selon le langage
+            if (appLanguage === 'python') {
+                pythonVersionGroup.style.display = 'block';
+                startupFileInput.placeholder = 'ex: app.py, main.py, app:app, wsgi:application';
+                startupHelp.textContent = 'Spécifiez le fichier Python ou module:function (ex: app:app pour Flask). Laissez vide pour gunicorn app:app.';
+            } else {
+                pythonVersionGroup.style.display = 'none';
+                startupFileInput.placeholder = 'ex: server.js, app.js, index.js';
+                startupHelp.textContent = 'Spécifiez le fichier d\'entrée de votre application Node.js. Laissez vide pour la détection automatique.';
+            }
+        }
+
+        // Charger les régions par défaut au démarrage
+        window.addEventListener('DOMContentLoaded', function () {
+            loadRegions('web_app');
+            updateFormFields();
+        });
+
+        formulaire.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = ' Création en cours...';
+            resultatDiv.className = 'results';
+            resultatDiv.classList.remove('hidden');
+            resultatDiv.innerHTML = '<p> Création du playbook et du job template AWX...</p>';
+
+            try {
+                const data = {};
+                new FormData(formulaire).forEach((value, key) => data[key] = value);
+
+                const response = await fetch('/api/formulaire', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    resultatDiv.className = 'results success';
+                    const deploymentDetails = result.playbook_result?.deployment_details || {};
+                    const appTypeDisplay = 'Web App classique';
+                    const languageDisplay = data.app_language === 'python' ? 'Python' : 'Node.js';
+                    resultatDiv.innerHTML = `
+                        <h4> Configuration créée avec succès!</h4>
+                        <p><strong>ID Formulaire:</strong> ${result.formulaire_id}</p>
+                        <p><strong>Application:</strong> ${data.nom_app}</p>
+                        <p><strong>Type:</strong> ${appTypeDisplay}</p>
+                        <p><strong>Langage:</strong> ${languageDisplay}</p>
+                        ${data.python_version && data.app_language === 'python' ? `<p><strong>Version Python:</strong> ${data.python_version}</p>` : ''}
+                        <p><strong>Nom Unique Azure:</strong> ${deploymentDetails.app_name || 'N/A'}</p>
+                        <p><strong>Région:</strong> ${data.location}</p>
+                        ${data.startup_file ? `<p><strong>Fichier de Démarrage:</strong> ${data.startup_file}</p>` : ''}
+                        <p><strong>URL App:</strong> <a href="${result.playbook_result?.app_url || '#'}" target="_blank">${result.playbook_result?.app_url || 'N/A'}</a></p>
+                    `;
+
+                    if (result.can_deploy && result.job_template_id) {
+                        currentJobTemplateId = result.job_template_id;
+                        deploymentSection.classList.remove('hidden');
+                        resultatDiv.innerHTML += `
+                            <p><strong>Job Template ID:</strong> ${result.job_template_id}</p>
+                            <p> Tout est prêt pour le déploiement!</p>
+                        `;
+                    } else {
+                        resultatDiv.innerHTML += `
+                            <p class="error">Problème avec la création du job template AWX</p>
+                        `;
+                    }
+                } else {
+                    resultatDiv.className = 'results error';
+                    resultatDiv.innerHTML = `<p> Erreur: ${result.detail || 'Erreur inconnue'}</p>`;
+                }
+            } catch (error) {
+                resultatDiv.className = 'results error';
+                resultatDiv.innerHTML = `<p> Erreur de connexion: ${error.message}</p>`;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = ' Créer Configuration';
+            }
+        });
+
+        deployBtn.addEventListener('click', async () => {
+            if (!currentJobTemplateId) {
+                alert(' Aucun job template disponible!');
+                return;
+            }
+
+            deployBtn.disabled = true;
+            deployBtn.textContent = ' Déploiement en cours...';
+            deploymentResult.className = 'results';
+            deploymentResult.classList.remove('hidden');
+            deploymentResult.innerHTML = '<p> Lancement du déploiement AWX...</p>';
+
+            try {
+                const response = await fetch(`/api/launch-job/${currentJobTemplateId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    deploymentResult.className = 'results success';
+                    deploymentResult.innerHTML = `
+                        <h4> Déploiement lancé avec succès!</h4>
+                        <p><strong>Job ID:</strong> ${result.job_id}</p>
+                        <p><strong>Statut:</strong> ${result.status}</p>
+                        <p> Vous pouvez suivre le progrès dans AWX</p>
+                    `;
+                } else {
+                    deploymentResult.className = 'results error';
+                    deploymentResult.innerHTML = `<p> Erreur de déploiement: ${result.detail || 'Erreur inconnue'}</p>`;
+                }
+            } catch (error) {
+                deploymentResult.className = 'results error';
+                deploymentResult.innerHTML = `<p> Erreur de connexion: ${error.message}</p>`;
+            } finally {
+                deployBtn.disabled = false;
+                deployBtn.textContent = ' Déployer sur Azure';
+            }
+        });
+    </script>
+</body>
+
+</html>

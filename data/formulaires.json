@@ -1,0 +1,1606 @@
+[
+    {
+        "id": "70a25370-c1c8-4b44-bca4-5f84a105fa19",
+        "params": {
+            "nom_app": "oo",
+            "resource_group": "oo",
+            "subscription_id": "aa",
+            "app_repo_url": "aa",
+            "app_repo_branch": "aaa",
+            "description": "aa",
+            "location": "aa",
+            "auth_token_name": "aa"
+        }
+    },
+    {
+        "id": "1fb1564d-8d88-4744-aafe-a8e15268ccaf",
+        "params": {
+            "nom_app": "oo",
+            "resource_group": "oo",
+            "subscription_id": "aa",
+            "app_repo_url": "aa",
+            "app_repo_branch": "zzzzzzz",
+            "description": "aa",
+            "location": "aa",
+            "auth_token_name": "aa"
+        }
+    },
+    {
+        "id": "005b0739-649f-4222-8252-f14c601d7380",
+        "params": {
+            "nom_app": "oo",
+            "resource_group": "oo",
+            "subscription_id": "aa",
+            "app_repo_url": "aa",
+            "app_repo_branch": "zzzzzzz",
+            "description": "aa",
+            "location": "aa",
+            "auth_token_name": "aa"
+        }
+    },
+    {
+        "id": "aa925beb-65e8-4f8a-8aff-32926360b73b",
+        "params": {
+            "nom_app": "mmmmmmmmmmm",
+            "resource_group": "oo",
+            "subscription_id": "aa",
+            "app_repo_url": "aa",
+            "app_repo_branch": "zzzzzzz",
+            "description": "aa",
+            "location": "aa",
+            "auth_token_name": "aa"
+        }
+    },
+    {
+        "id": "4dddd6e2-dced-4ce7-a5f5-75623cec3520",
+        "params": {
+            "nom_app": "oo",
+            "resource_group": "oo",
+            "subscription_id": "aa",
+            "app_repo_url": "aa",
+            "app_repo_branch": "aaa",
+            "description": "sssssssss",
+            "location": "aa",
+            "auth_token_name": "aa"
+        }
+    },
+    {
+        "id": "0e75ba10-f467-4e05-a61f-b128b9a4f283",
+        "params": {
+            "nom_app": "oo",
+            "resource_group": "oo",
+            "subscription_id": "aa",
+            "app_repo_url": "aa",
+            "app_repo_branch": "aaa",
+            "description": "sssssssss",
+            "location": "aa",
+            "auth_token_name": "aa"
+        }
+    },
+    {
+        "id": "0eb379b1-7cd6-46dc-9d54-088a63bf887b",
+        "params": {
+            "nom_app": "oo",
+            "resource_group": "oo",
+            "subscription_id": "aa",
+            "app_repo_url": "aa",
+            "app_repo_branch": "aaa",
+            "description": "sssssssss",
+            "location": "zzzzzzzzzzz",
+            "auth_token_name": "aa"
+        }
+    },
+    {
+        "id": "0f0231c0-b345-4b04-9666-d3b984b5a54f",
+        "params": {
+            "nom_app": "ooeeeeeeeeee",
+            "resource_group": "oo",
+            "subscription_id": "aa",
+            "app_repo_url": "aa",
+            "app_repo_branch": "aaa",
+            "description": "sssssssss",
+            "location": "aa",
+            "auth_token_name": "aa"
+        }
+    },
+    {
+        "id": "7512a4fa-231a-4537-a6df-250d9fbda251",
+        "params": {
+            "nom_app": "test1",
+            "resource_group": "oo",
+            "subscription_id": "aa",
+            "app_repo_url": "aa",
+            "app_repo_branch": "aaa",
+            "description": "sssssssss",
+            "location": "aa",
+            "auth_token_name": "aa"
+        }
+    },
+    {
+        "id": "effb7707-df9f-4aca-9e95-b87cc6abfcec",
+        "params": {
+            "nom_app": "test2",
+            "resource_group": "oo",
+            "subscription_id": "aa",
+            "app_repo_url": "aa",
+            "app_repo_branch": "aaa",
+            "description": "sssssssss",
+            "location": "aa",
+            "auth_token_name": "aa"
+        }
+    },
+    {
+        "id": "7fdd39f9-1a5d-4621-8c5a-97556094f7f1",
+        "params": {
+            "nom_app": "test2",
+            "resource_group": "oo",
+            "subscription_id": "aa",
+            "app_repo_url": "aa",
+            "app_repo_branch": "aaa",
+            "description": "sssssssss",
+            "location": "aa",
+            "auth_token_name": "aa"
+        }
+    },
+    {
+        "id": "85b6555a-7ced-47ed-8fc7-b6a2a1a85c4f",
+        "params": {
+            "nom_app": "test3",
+            "resource_group": "oo",
+            "subscription_id": "aa",
+            "app_repo_url": "aa",
+            "app_repo_branch": "aaa",
+            "description": "sssssssss",
+            "location": "aa",
+            "auth_token_name": "aa"
+        }
+    },
+    {
+        "id": "a0692512-eb35-459a-b04e-9cbf28136868",
+        "params": {
+            "nom_app": "app-test-1",
+            "resource_group": "grp-test-1",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/awx-hello-job.git",
+            "app_repo_branch": "main",
+            "description": "test num1",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "aa389832-1742-4441-9519-c7bf9e4323ac",
+        "params": {
+            "nom_app": "app-test-2",
+            "resource_group": "grp-test-2",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/awx-hello-job.git",
+            "app_repo_branch": "main",
+            "description": "test num2",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "e3fe6c83-ea91-42d3-afdf-c03fa85958f9",
+        "params": {
+            "nom_app": "app-test-2",
+            "resource_group": "grp-test-2",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/awx-hello-job.git",
+            "app_repo_branch": "main",
+            "description": "test num2",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "dfe060b4-6e7d-483c-a311-167060717ec5",
+        "params": {
+            "nom_app": "app-test-3",
+            "resource_group": "grp-test-3",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/awx-hello-job.git",
+            "app_repo_branch": "main",
+            "description": "test num3",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "58cd1f8d-f141-408a-b7d1-65cd7974bde8",
+        "params": {
+            "nom_app": "app-test-4",
+            "resource_group": "grp-test-4",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/awx-hello-job.git",
+            "app_repo_branch": "main",
+            "description": "test num2",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "93e62f86-cf17-42ef-9585-7646ad4dfc81",
+        "params": {
+            "nom_app": "app-test-5",
+            "resource_group": "grp-test-5",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/awx-hello-job.git",
+            "app_repo_branch": "main",
+            "description": "test num5",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "52a732ca-6dda-46c7-8bd0-f12ac0424244",
+        "params": {
+            "nom_app": "app-test-7",
+            "resource_group": "grp-test-7",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/awx-hello-job.git",
+            "app_repo_branch": "main",
+            "description": "test num7",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "eb5a4bac-9c52-4f1d-bc93-b73726029c41",
+        "params": {
+            "nom_app": "app-test-8",
+            "resource_group": "grp-test-7",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/awx-hello-job.git",
+            "app_repo_branch": "main",
+            "description": "test num7",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "bbbc39b3-70ab-4b23-9725-724b18475922",
+        "params": {
+            "nom_app": "app-test-9",
+            "resource_group": "grp-test-9",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/awx-hello-job.git",
+            "app_repo_branch": "main",
+            "description": "test num9",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "2762771c-5f68-443b-8da3-32ae6a11b541",
+        "params": {
+            "nom_app": "app-test-00",
+            "resource_group": "grp-test-00",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "test num00",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "8363ca7e-8186-4291-80a4-dc427b770bf8",
+        "params": {
+            "nom_app": "app-test-11",
+            "resource_group": "grp-test-11",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/awx-hello-job.git",
+            "app_repo_branch": "main",
+            "description": "test num11",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "d987ccf1-e352-4cd4-856c-49afa3b97183",
+        "params": {
+            "nom_app": "app-test-12",
+            "resource_group": "grp-test-12",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "test num12",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "44087715-4863-44fe-a159-5fb35ed34c8b",
+        "params": {
+            "nom_app": "app-test-13",
+            "resource_group": "grp-test-13",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "test num13",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "52d62696-5a07-4f70-8b75-6cfd489b858c",
+        "params": {
+            "nom_app": "app-test-14",
+            "resource_group": "grp-test-13",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "test num13",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "93fd130e-67b3-4cf8-bc2c-e525c309278e",
+        "params": {
+            "nom_app": "app-test-15",
+            "resource_group": "grp-test-15",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "test num15",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "37eb659d-685f-4216-8186-d874554b4cee",
+        "params": {
+            "nom_app": "app-test-16",
+            "resource_group": "grp-test-16",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "test num16",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "493ad343-ffda-4bbe-aed4-a272fa1e29e2",
+        "params": {
+            "nom_app": "app-test-17",
+            "resource_group": "grp-test-17",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "test num17",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "57432083-bd51-482c-a57e-f12785d27f79",
+        "params": {
+            "nom_app": "app-test-18",
+            "resource_group": "grp-test-18",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "test num18",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "d4139720-d993-42cf-8d84-bfc78f15aa06",
+        "params": {
+            "nom_app": "app-test-1111",
+            "resource_group": "grp-test-1111",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "test num1111",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "68b9e696-2c0b-40ce-94de-e3705da02a9e",
+        "params": {
+            "nom_app": "app-test-111",
+            "resource_group": "grp-test-111",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "test num111",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "5505ec44-3f8c-4afd-8e2b-bb36800eb2e9",
+        "params": {
+            "nom_app": "app-test-000",
+            "resource_group": "grp-test-000",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "test num000",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "2ff30b26-99a7-4cfa-9739-fd8eebd844ca",
+        "params": {
+            "nom_app": "app-test-0",
+            "resource_group": "grp-test-0",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "test num0",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "00ee4c60-bf49-4e28-9657-b21a2325bf23",
+        "params": {
+            "nom_app": "test1",
+            "resource_group": "grp-test-1",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "test num1",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "e8e31702-fe24-4634-8f17-893f33edfc0e",
+        "params": {
+            "nom_app": "testing-app-1",
+            "resource_group": "grpppp1",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "app etst 1",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "be480a84-a0a0-4c72-be55-7910f62bbbcd",
+        "params": {
+            "nom_app": "testing-app-2",
+            "resource_group": "grpppp2",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "app etst 2",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "3c5d1f29-b0cd-43e2-97cb-eafe1492c342",
+        "params": {
+            "nom_app": "testing-app-3",
+            "resource_group": "grpppp3",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "app etst 3",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "13123174-672b-4697-8ba1-8b976061222c",
+        "params": {
+            "nom_app": "testing-app-4",
+            "resource_group": "grpppp4",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "app etst 4",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "1ff4c383-08ce-425d-84c5-5eb3f643ecd5",
+        "params": {
+            "nom_app": "testing-app-5",
+            "resource_group": "grpppp5",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "app etst 5",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "2901df18-608b-4453-b5b5-f61c026a5748",
+        "params": {
+            "nom_app": "testing-app-6",
+            "resource_group": "grpppp6",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "app etst 6",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "8cf16e1f-27aa-4601-b798-76dd45428fea",
+        "params": {
+            "nom_app": "testing-app-7",
+            "resource_group": "grpppp7",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "app etst 7",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "1cea581a-663d-4f42-8e2c-3e2864b3ac67",
+        "params": {
+            "nom_app": "testing-app-8",
+            "resource_group": "grpppp-8",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "app etst 8",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "c938d334-a6bf-4ad9-b231-8d57fc5f546f",
+        "params": {
+            "nom_app": "testing-app-9",
+            "resource_group": "grpppp-9",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "app etst 9",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "6c0c0651-3714-44d3-8987-5649dc2d6473",
+        "params": {
+            "nom_app": "application-test-1",
+            "resource_group": "groupe-de-test-1",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "description-1",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "1206084a-1873-4f8a-8a53-f8539acc6482",
+        "params": {
+            "nom_app": "application-test-2",
+            "resource_group": "groupe-de-test-2",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "description-2",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "4c057c80-69f5-445e-8b77-db299d26fdff",
+        "params": {
+            "nom_app": "application-test-3",
+            "resource_group": "grp-testing-3",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "ggggggg",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "88b049b7-36c6-42f5-b38f-957d4c6bea96",
+        "params": {
+            "nom_app": "application-test-4",
+            "resource_group": "grp-testing-4",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "ggggggg",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "31817e91-40aa-40a6-b2cc-7e1692beb998",
+        "params": {
+            "nom_app": "application-test-5",
+            "resource_group": "grp-testing-5",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "ggggggg",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "98763793-7cc7-48f8-9c5a-b1711bd7091e",
+        "params": {
+            "nom_app": "application-test-5",
+            "resource_group": "grp-testing-5",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "ggggggg",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "c4a80ace-25c0-4fa2-be28-dfddb1f138f3",
+        "params": {
+            "nom_app": "application-test-6",
+            "resource_group": "grp-testing-6",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "ggggggg",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "9cb0ebf3-ae5e-434f-b77b-b77fb5a7ece4",
+        "params": {
+            "nom_app": "application-test-7",
+            "resource_group": "grp-testing-7",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "ggggggg",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "ad92536c-8cfc-4839-9c31-ef790f2f21b5",
+        "params": {
+            "nom_app": "application-test-8",
+            "resource_group": "grp-testing-8",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "ggggggg",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "fef97531-8aba-496c-bd0c-0d84868d0245",
+        "params": {
+            "nom_app": "application-test-9",
+            "resource_group": "grp-testing-9",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "ggggggg",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "400fc57d-24e6-440e-bb51-1d1f22f02736",
+        "params": {
+            "nom_app": "application-test-0",
+            "resource_group": "grp-testing-0",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "ggggggg",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "8d71571a-5a3f-4479-a182-c59c113169f5",
+        "params": {
+            "nom_app": "final-test",
+            "resource_group": "final-test-grp",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "final test",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "95eacb8a-378f-4215-ae03-f38ce074574e",
+        "params": {
+            "nom_app": "final-test-1",
+            "resource_group": "final-test-grp-1",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "final test",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "27592811-e1a4-4989-8380-8591e295ef72",
+        "params": {
+            "nom_app": "final-test-2",
+            "resource_group": "final-test-grp-2",
+            "app_repo_url": "https://github.com/djeada/NodeJs-Minimal",
+            "app_repo_branch": "main",
+            "description": "final test",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "6905b007-080d-4f28-9145-b25d2dd91dbb",
+        "params": {
+            "nom_app": "final-test-2",
+            "resource_group": "final-test-grp-2",
+            "app_repo_url": "https://github.com/djeada/NodeJs-Minimal",
+            "app_repo_branch": "main",
+            "description": "final test",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "b5a3bd61-3a48-4067-a57a-d30752585c8b",
+        "params": {
+            "nom_app": "final-test-2",
+            "resource_group": "final-test-grp-2",
+            "app_repo_url": "https://github.com/djeada/NodeJs-Minimal",
+            "app_repo_branch": "main",
+            "description": "final test",
+            "location": "East US"
+        }
+    },
+    {
+        "id": "b21fc025-d8d4-44d6-b3f0-7cece1fc6445",
+        "params": {
+            "nom_app": "final-test-3",
+            "resource_group": "final-test-grp-3",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "final test",
+            "location": "East US",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "3502d5af-fbfe-4ede-8354-eba06fb597c0",
+        "params": {
+            "nom_app": "final-test-static",
+            "resource_group": "final-test-grp-static",
+            "app_repo_url": "https://github.com/djeada/NodeJs-Minimal",
+            "app_repo_branch": "main",
+            "description": "final test static",
+            "location": "East US",
+            "app_type": "static_web_app"
+        }
+    },
+    {
+        "id": "44440a1b-b958-40e9-a15c-b7f2920fdeca",
+        "params": {
+            "nom_app": "final-test-static-1",
+            "resource_group": "final-grp-static-1",
+            "app_repo_url": "https://github.com/djeada/NodeJs-Minimal",
+            "app_repo_branch": "main",
+            "description": "final test static",
+            "location": "westeurope",
+            "app_type": "static_web_app"
+        }
+    },
+    {
+        "id": "88e592c6-cab7-494a-a3b8-2e75be7a0086",
+        "params": {
+            "nom_app": "final-test-app2",
+            "resource_group": "final-grp-app2",
+            "app_repo_url": "https://github.com/djeada/NodeJs-Minimal",
+            "app_repo_branch": "main",
+            "description": "final test app 2",
+            "location": "canadacentral",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "496d30e6-4054-46c3-8dc8-5189bb79c648",
+        "params": {
+            "nom_app": "final-test-app3",
+            "resource_group": "final-grp-app3",
+            "app_repo_url": "https://github.com/djeada/NodeJs-Minimal",
+            "app_repo_branch": "main",
+            "description": "final test app 2",
+            "location": "eastus",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "6d92b3e1-78ec-4a9a-9a12-7f0ca736e18a",
+        "params": {
+            "nom_app": "final-test-app4",
+            "resource_group": "final-grp-app4",
+            "app_repo_url": "https://github.com/djeada/NodeJs-Minimal",
+            "app_repo_branch": "main",
+            "description": "final test app 2",
+            "location": "eastus",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "25ea4f82-217a-450a-b0c4-cd6b6244bd00",
+        "params": {
+            "nom_app": "final-test-app5",
+            "resource_group": "final-grp-app5",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "final test app 5",
+            "location": "eastus",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "0a59c77b-ed8f-47ab-9a3a-6ceeeefde3d4",
+        "params": {
+            "nom_app": "final-test-app6",
+            "resource_group": "final-grp-app6",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "final test app 6",
+            "location": "eastus",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "362ac7af-e728-4c3d-8b66-f6bae86bf5ac",
+        "params": {
+            "nom_app": "final-test-app7",
+            "resource_group": "final-grp-app7",
+            "app_repo_url": "https://github.com/djeada/NodeJs-Minimal",
+            "app_repo_branch": "main",
+            "description": "final test app 7",
+            "location": "eastus",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "0d66f621-d65b-42a4-a2e5-f4f2489685fa",
+        "params": {
+            "nom_app": "final-test-app8",
+            "resource_group": "final-grp-app8",
+            "app_repo_url": "https://github.com/djeada/NodeJs-Minimal",
+            "app_repo_branch": "main",
+            "description": "final test app 8",
+            "location": "eastus",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "b0fe1d10-a8b3-46d5-8b89-ea4bf086e16c",
+        "params": {
+            "nom_app": "final-test-app9",
+            "resource_group": "final-grp-app9",
+            "app_repo_url": "https://github.com/djeada/NodeJs-Minimal",
+            "app_repo_branch": "main",
+            "description": "final test app 9",
+            "location": "eastus",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "2e774fc6-3dac-4cc5-80e8-9adc2554c6fb",
+        "params": {
+            "nom_app": "final-test-app0",
+            "resource_group": "final-grp-app0",
+            "app_repo_url": "https://github.com/djeada/NodeJs-Minimal",
+            "app_repo_branch": "main",
+            "description": "final test app 0",
+            "location": "eastus",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "e001930c-532a-44e1-93e9-b2442f526439",
+        "params": {
+            "nom_app": "final-test-app00",
+            "resource_group": "final-grp-app00",
+            "app_repo_url": "https://github.com/djeada/NodeJs-Minimal",
+            "app_repo_branch": "main",
+            "description": "final test app 00",
+            "location": "eastus",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "ecd35f92-5a8e-41a6-8c0f-8d546e90bbe1",
+        "params": {
+            "nom_app": "final-test-app55",
+            "resource_group": "final-grp-app55",
+            "app_repo_url": "https://github.com/djeada/NodeJs-Minimal",
+            "app_repo_branch": "main",
+            "description": "final test app 55",
+            "location": "eastus",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "1660ad04-76f1-4f34-80c2-3fef9ec030ee",
+        "params": {
+            "nom_app": "final-test-app66",
+            "resource_group": "final-grp-app66",
+            "app_repo_url": "https://github.com/djeada/NodeJs-Minimal",
+            "app_repo_branch": "main",
+            "description": "final test app 66",
+            "location": "eastus",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "1c04afc9-b2d1-4e6a-9b56-cc4833c9b179",
+        "params": {
+            "nom_app": "final-test-app77",
+            "resource_group": "final-grp-app77",
+            "app_repo_url": "https://github.com/djeada/NodeJs-Minimal",
+            "app_repo_branch": "main",
+            "description": "final test app 77",
+            "location": "eastus",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "4f56954f-209a-4d19-a33a-e991db566543",
+        "params": {
+            "nom_app": "final-test-app88",
+            "resource_group": "final-grp-app88",
+            "app_repo_url": "https://github.com/djeada/NodeJs-Minimal",
+            "app_repo_branch": "main",
+            "description": "final test app 88",
+            "location": "eastus",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "dd6d672b-1413-4627-a52c-af79e2f8f969",
+        "params": {
+            "nom_app": "final-test-99",
+            "resource_group": "final-grp-99",
+            "app_repo_url": "https://github.com/djeada/NodeJs-Minimal",
+            "app_repo_branch": "main",
+            "description": "final test app 99",
+            "location": "eastus",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "77abc866-6b6d-4ec1-b252-d3ae99640e5d",
+        "params": {
+            "nom_app": "final-test-998",
+            "resource_group": "final-grp-998",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "final test app 99",
+            "location": "eastus",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "39dcf82c-fc0e-4c9c-a301-1eb5af87f478",
+        "params": {
+            "nom_app": "final-test-9988",
+            "resource_group": "final-grp-9988",
+            "app_repo_url": "https://github.com/djeada/NodeJs-Minimal",
+            "app_repo_branch": "main",
+            "description": "final test app 998",
+            "location": "eastus",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "b1ad1d90-9097-44e2-8ce4-6965c900a0a6",
+        "params": {
+            "nom_app": "finaal-test-00",
+            "resource_group": "finaal-grp-00",
+            "app_repo_url": "https://github.com/djeada/NodeJs-Minimal",
+            "app_repo_branch": "main",
+            "description": "finaal test app 00",
+            "location": "eastus",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "07e39e00-6b5d-4ae0-9911-66a69109be01",
+        "params": {
+            "nom_app": "finaal-test-000",
+            "resource_group": "finaal-grp-000",
+            "app_repo_url": "https://github.com/djeada/NodeJs-Minimal",
+            "app_repo_branch": "main",
+            "description": "finaal test app 00",
+            "location": "eastus",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "f78a2bdc-7211-4746-9bfc-0f7227012787",
+        "params": {
+            "nom_app": "finaal-test-5",
+            "resource_group": "finaal-grp-5",
+            "app_repo_url": "https://github.com/scotch-io/node-api.git",
+            "app_repo_branch": "main",
+            "description": "finaal test app 5",
+            "location": "eastus",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "77fc9ea6-a49e-4b20-9408-2edec9425624",
+        "params": {
+            "nom_app": "finaal-test-4",
+            "resource_group": "finaal-grp-4",
+            "app_repo_url": "https://github.com/heroku/node-js-sample.git",
+            "app_repo_branch": "main",
+            "description": "finaal test app 4",
+            "location": "eastus",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "1f23ea11-14fa-4528-8d18-65e96d2aef6b",
+        "params": {
+            "nom_app": "finaal-test-3",
+            "resource_group": "finaal-grp-3",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-getting-started.git",
+            "app_repo_branch": "main",
+            "description": "finaal test app 4",
+            "location": "eastus",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "bd8192a0-7aca-4e6a-93cb-0b029a32fa5f",
+        "params": {
+            "nom_app": "finaal-test-33",
+            "resource_group": "finaal-grp-33",
+            "app_repo_url": "https://github.com/heroku/nodejs-getting-started.git",
+            "app_repo_branch": "main",
+            "description": "finaal test app 4",
+            "location": "eastus",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "2c0dbb21-62f5-45d3-9902-6914fec55bc9",
+        "params": {
+            "nom_app": "finaal-test-66",
+            "resource_group": "finaal-grp-66",
+            "app_repo_url": "https://github.com/sahat/hackathon-starter.git",
+            "app_repo_branch": "main",
+            "description": "finaal test app 4",
+            "location": "eastus",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "ece77a3b-077c-4007-acbf-07b95407a5a7",
+        "params": {
+            "nom_app": "essai-app-1",
+            "resource_group": "essai-grp-1",
+            "app_repo_url": "https://github.com/Azure-Samples/quickstart-deploy-nodejs-app-service.git",
+            "app_repo_branch": "main",
+            "description": "bla bla",
+            "location": "canadaeast",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "76fdc985-4281-45d2-85c1-6a56a451aba4",
+        "params": {
+            "nom_app": "essai-app-2",
+            "resource_group": "essai-grp-2",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/quickstart-deploy-nodejs-app-service.git",
+            "app_repo_branch": "main",
+            "description": "bla bla",
+            "location": "canadaeast",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "1849e3ee-48bb-4e8d-a768-aa271195fad5",
+        "params": {
+            "nom_app": "essai-app-3",
+            "resource_group": "essai-grp-3",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-getting-started.git",
+            "app_repo_branch": "main",
+            "description": "bla bla",
+            "location": "canadaeast",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "9d29c34a-21a7-423e-8d90-c3c57d56dd6b",
+        "params": {
+            "nom_app": "essai-app-33",
+            "resource_group": "essai-grp-33",
+            "app_repo_url": "https://github.com/Azure-Samples/quickstart-deploy-nodejs-app-service.git",
+            "app_repo_branch": "main",
+            "description": "bla bla",
+            "location": "francecentral",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "d573cea6-2136-436a-9857-11e9fe6d290a",
+        "params": {
+            "nom_app": "essai-app-333",
+            "resource_group": "essai-grp-333",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-getting-started.git",
+            "app_repo_branch": "main",
+            "description": "bla bla",
+            "location": "francecentral",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "5917d068-b014-4f55-b199-03d593653435",
+        "params": {
+            "nom_app": "essai-app-55",
+            "resource_group": "essai-grp-55",
+            "app_repo_url": "https://github.com/mohithnd/nodejs-express-mongodb-template.git",
+            "app_repo_branch": "main",
+            "description": "bla bla",
+            "location": "westus",
+            "app_type": "web_app"
+        }
+    },
+    {
+        "id": "7b802957-cf57-44bd-8319-5fdcc268d3c7",
+        "params": {
+            "nom_app": "dimanche-app-0",
+            "resource_group": "dimanche-grp-0",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/NodeJs-Minimal.git",
+            "app_repo_branch": "main",
+            "description": "bla bla",
+            "location": "francecentral",
+            "app_type": "web_app",
+            "startup_file": "src/app.js"
+        }
+    },
+    {
+        "id": "21301d52-e238-477c-8a13-12a9b072f3ed",
+        "params": {
+            "nom_app": "dimanche-app-1",
+            "resource_group": "dimanche-grp-1",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/NodeJs-Minimal.git",
+            "app_repo_branch": "main",
+            "description": "bla bla",
+            "location": "francecentral",
+            "app_type": "web_app",
+            "startup_file": "src/app.js"
+        }
+    },
+    {
+        "id": "e05004eb-187e-43fe-a361-1c925f2758d3",
+        "params": {
+            "nom_app": "dimanche-app-2",
+            "resource_group": "dimanche-grp-2",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/NodeJs-Minimal.git",
+            "app_repo_branch": "main",
+            "description": "bla bla",
+            "location": "francecentral",
+            "app_type": "web_app",
+            "startup_file": "src/app.js"
+        }
+    },
+    {
+        "id": "ff61af0d-2e03-44be-97f1-ae649fba9c74",
+        "params": {
+            "nom_app": "dimanche-app-3",
+            "resource_group": "dimanche-grp-3",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/NodeJs-Minimal.git",
+            "app_repo_branch": "main",
+            "description": "bla bla",
+            "location": "francecentral",
+            "app_type": "web_app",
+            "startup_file": "src/app.js"
+        }
+    },
+    {
+        "id": "5a6df7ab-9ab4-4e43-b921-be255b5e6cfe",
+        "params": {
+            "nom_app": "dimanche-app-4",
+            "resource_group": "dimanche-grp-4",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/NodeJs-Minimal.git",
+            "app_repo_branch": "main",
+            "description": "bla bla",
+            "location": "francecentral",
+            "app_type": "web_app",
+            "startup_file": "src/app.js"
+        }
+    },
+    {
+        "id": "f465def2-b43f-4e94-a2c1-34d3c2b96504",
+        "params": {
+            "nom_app": "dimanche-app-5",
+            "resource_group": "dimanche-grp-5",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/node-js-sample.git",
+            "app_repo_branch": "main",
+            "description": "bla bla",
+            "location": "francecentral",
+            "app_type": "web_app",
+            "startup_file": "src/app.js"
+        }
+    },
+    {
+        "id": "4e81e02d-d26b-4aa9-a951-13ba9d100ab5",
+        "params": {
+            "nom_app": "dimanche-app-6",
+            "resource_group": "dimanche-grp-6",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "bla bla",
+            "location": "francecentral",
+            "app_type": "web_app",
+            "startup_file": ""
+        }
+    },
+    {
+        "id": "c77a02ba-42a5-418f-8414-e82e68ae93f8",
+        "params": {
+            "nom_app": "dimanche-app-7",
+            "resource_group": "dimanche-grp-7",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "bla bla",
+            "location": "francecentral",
+            "app_type": "web_app",
+            "startup_file": ""
+        }
+    },
+    {
+        "id": "819cce3a-26b6-4d66-9f77-4800804a0cb2",
+        "params": {
+            "nom_app": "dimanche-app-8",
+            "resource_group": "dimanche-grp-8",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "bla bla",
+            "location": "francecentral",
+            "app_type": "web_app",
+            "startup_file": ""
+        }
+    },
+    {
+        "id": "65d94b29-9ea0-4a05-a8e7-7a7c4d4c9619",
+        "params": {
+            "nom_app": "dimanche-app-9",
+            "resource_group": "dimanche-grp-9",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "bla bla",
+            "location": "francecentral",
+            "app_type": "web_app",
+            "startup_file": ""
+        }
+    },
+    {
+        "id": "3bef6c18-20e4-415a-8c01-467231e417c2",
+        "params": {
+            "nom_app": "dimanche-app-10",
+            "resource_group": "dimanche-grp-10",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/nodejs-getting-started.git",
+            "app_repo_branch": "main",
+            "description": "bla bla",
+            "location": "francecentral",
+            "app_type": "web_app",
+            "startup_file": ""
+        }
+    },
+    {
+        "id": "52fdaf7e-0250-45cb-b77d-573c837befbf",
+        "params": {
+            "nom_app": "dimanche-app-delete",
+            "resource_group": "dimanche-grp-delete",
+            "app_repo_url": "https://github.com/scotch-io/node-todo.git",
+            "app_repo_branch": "main",
+            "description": "bla bla",
+            "location": "francecentral",
+            "app_type": "web_app",
+            "startup_file": ""
+        }
+    },
+    {
+        "id": "307f90b8-c34a-462e-a6ec-bb259e5f143b",
+        "params": {
+            "nom_app": "dimanche-app-delete0",
+            "resource_group": "dimanche-grp-delete0",
+            "app_repo_url": "https://github.com/scotch-io/node-todo.git",
+            "app_repo_branch": "main",
+            "description": "bla bla",
+            "location": "francecentral",
+            "app_type": "web_app",
+            "startup_file": ""
+        }
+    },
+    {
+        "id": "16b90e35-288e-4a94-98a0-8a5ca32ac956",
+        "params": {
+            "nom_app": "dimanche-1",
+            "resource_group": "dimanche-1",
+            "app_repo_url": "https://github.com/Nour-Ben-Hadid/NodeJs-Minimal",
+            "app_repo_branch": "main",
+            "description": "fkznrfer",
+            "location": "francecentral",
+            "app_type": "web_app",
+            "startup_file": "src/app.js"
+        }
+    },
+    {
+        "id": "1491385b-062d-4ada-acc6-63522c3661b3",
+        "params": {
+            "nom_app": "dimanche-static-0",
+            "resource_group": "dimanche-static-0",
+            "app_repo_url": "https://github.com/mdn/beginner-html-site.git",
+            "app_repo_branch": "main",
+            "description": "fkznrfer",
+            "location": "centralus",
+            "app_type": "static_web_app",
+            "startup_file": ""
+        }
+    },
+    {
+        "id": "f1178992-8dad-46bb-9f9a-6613df88b774",
+        "params": {
+            "nom_app": "dimanche-static-2",
+            "resource_group": "dimanche-static-2",
+            "app_repo_url": "https://github.com/mdn/beginner-html-site.git",
+            "app_repo_branch": "main",
+            "description": "fkznrfer",
+            "location": "westeurope",
+            "app_type": "static_web_app",
+            "startup_file": ""
+        }
+    },
+    {
+        "id": "4c316812-f937-492e-9223-6000617a42a0",
+        "params": {
+            "nom_app": "test-python-app",
+            "resource_group": "rg-test-python",
+            "app_repo_url": "https://github.com/microsoft/python-sample-webapp",
+            "app_repo_branch": "main",
+            "description": "Test app Python avec Flask",
+            "location": "eastus",
+            "app_type": "web_app",
+            "startup_file": "app.py"
+        }
+    },
+    {
+        "id": "6290246b-132f-4448-a9a9-5c6297272eaa",
+        "params": {
+            "nom_app": "test-nodejs-app",
+            "resource_group": "rg-test-nodejs",
+            "app_repo_url": "https://github.com/microsoft/nodejs-sample-webapp",
+            "app_repo_branch": "main",
+            "description": "Test app Node.js avec Express",
+            "location": "eastus",
+            "app_type": "web_app",
+            "startup_file": "server.js"
+        }
+    },
+    {
+        "id": "6f68d7c4-47ac-4c43-8b67-f917db6a59d9",
+        "params": {
+            "nom_app": "test-python-app",
+            "resource_group": "rg-test-python",
+            "app_repo_url": "https://github.com/microsoft/python-sample-webapp",
+            "app_repo_branch": "main",
+            "description": "Test app Python avec Flask",
+            "location": "eastus",
+            "app_type": "web_app",
+            "startup_file": "app.py"
+        }
+    },
+    {
+        "id": "c4f7a01f-4a66-4c34-91a9-4b16fa4055b8",
+        "params": {
+            "nom_app": "test-nodejs-app",
+            "resource_group": "rg-test-nodejs",
+            "app_repo_url": "https://github.com/microsoft/nodejs-sample-webapp",
+            "app_repo_branch": "main",
+            "description": "Test app Node.js avec Express",
+            "location": "eastus",
+            "app_type": "web_app",
+            "startup_file": "server.js"
+        }
+    },
+    {
+        "id": "c66588fa-b7b4-460c-8755-59795d11bbe1",
+        "params": {
+            "nom_app": "jeudi-0",
+            "resource_group": "jeudi-grp-0",
+            "app_repo_url": "https://github.com/Azure-Samples/python-docs-hello-world.git",
+            "app_repo_branch": "master",
+            "description": "python app ",
+            "location": "francecentral",
+            "app_type": "web_app",
+            "startup_file": "app.py"
+        }
+    },
+    {
+        "id": "405b2fea-0cd4-435f-8360-768e11b8b674",
+        "params": {
+            "nom_app": "test-python-app",
+            "resource_group": "rg-test-python",
+            "app_repo_url": "https://github.com/Azure-Samples/python-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "Test Python App",
+            "location": "westeurope",
+            "app_type": "web_app",
+            "app_language": "python",
+            "python_version": "3.11",
+            "startup_file": "application.py"
+        }
+    },
+    {
+        "id": "e958ca29-c7db-4d7c-a985-13d22738775c",
+        "params": {
+            "nom_app": "test-python-app",
+            "resource_group": "rg-test-python",
+            "app_repo_url": "https://github.com/Azure-Samples/python-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "Test Python App",
+            "location": "westeurope",
+            "app_type": "web_app",
+            "app_language": "python",
+            "python_version": "3.11",
+            "startup_file": "app.py"
+        }
+    },
+    {
+        "id": "ff718bc2-7d0e-435a-84c9-5863d69eae9a",
+        "params": {
+            "nom_app": "jeudi-1",
+            "resource_group": "jeudi-grp-1",
+            "app_repo_url": "https://github.com/Azure-Samples/python-docs-hello-world.git",
+            "app_repo_branch": "master",
+            "description": "python app ",
+            "location": "francecentral",
+            "app_type": "web_app",
+            "startup_file": "app.py"
+        }
+    },
+    {
+        "id": "e476a0cd-3469-4de7-8ec5-a5d9d3646026",
+        "params": {
+            "nom_app": "test-python-app",
+            "resource_group": "rg-test-python",
+            "app_repo_url": "https://github.com/Azure-Samples/python-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "Test Python App",
+            "location": "westeurope",
+            "app_type": "web_app",
+            "app_language": "python",
+            "python_version": "3.11",
+            "startup_file": "app.py"
+        }
+    },
+    {
+        "id": "f8471d3d-7de6-46cf-8158-7d581bb91bd7",
+        "params": {
+            "nom_app": "test-python-autodetect",
+            "resource_group": "rg-test-python-auto",
+            "app_repo_url": "https://github.com/Azure-Samples/python-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "Test Python App Auto-detect",
+            "location": "westeurope",
+            "app_type": "web_app",
+            "app_language": "python",
+            "python_version": "3.11",
+            "startup_file": null
+        }
+    },
+    {
+        "id": "7e44a509-fa4d-45d2-a376-5f634934d221",
+        "params": {
+            "nom_app": "test-python-app",
+            "resource_group": "rg-test-python",
+            "app_repo_url": "https://github.com/Azure-Samples/python-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "Test Python App",
+            "location": "westeurope",
+            "app_type": "web_app",
+            "app_language": "python",
+            "python_version": "3.11",
+            "startup_file": "app.py"
+        }
+    },
+    {
+        "id": "a3ebb442-580a-48a1-a367-98276010998d",
+        "params": {
+            "nom_app": "test-python-autodetect",
+            "resource_group": "rg-test-python-auto",
+            "app_repo_url": "https://github.com/Azure-Samples/python-docs-hello-world.git",
+            "app_repo_branch": "main",
+            "description": "Test Python App Auto-detect",
+            "location": "westeurope",
+            "app_type": "web_app",
+            "app_language": "python",
+            "python_version": "3.11",
+            "startup_file": null
+        }
+    },
+    {
+        "id": "120bc6de-9120-45f3-b4f3-02019f7d30ae",
+        "params": {
+            "nom_app": "jeudi-2",
+            "resource_group": "jeudi-grp-2",
+            "app_repo_url": "https://github.com/Azure-Samples/python-docs-hello-world.git",
+            "app_repo_branch": "master",
+            "description": "python app ",
+            "location": "francecentral",
+            "app_type": "web_app",
+            "startup_file": "app.py"
+        }
+    },
+    {
+        "id": "158d70b5-43c1-478e-97cb-698fa8d7e9c9",
+        "params": {
+            "nom_app": "jeudi-3",
+            "resource_group": "jeudi-grp-3",
+            "app_repo_url": "https://github.com/Azure-Samples/python-docs-hello-world.git",
+            "app_repo_branch": "master",
+            "description": "python app ",
+            "location": "francecentral",
+            "app_type": "web_app",
+            "app_language": "python",
+            "python_version": "3.11",
+            "startup_file": "app.py"
+        }
+    },
+    {
+        "id": "8a94ef8a-3b24-4ab8-8779-c15f3f4e09c6",
+        "params": {
+            "nom_app": "jeudi-4",
+            "resource_group": "jeudi-grp-4",
+            "app_repo_url": "https://github.com/Azure-Samples/python-docs-hello-world.git",
+            "app_repo_branch": "master",
+            "description": "python app ",
+            "location": "francecentral",
+            "app_type": "web_app",
+            "app_language": "python",
+            "python_version": "3.11",
+            "startup_file": "app.py"
+        }
+    },
+    {
+        "id": "ef876e5d-abbc-4c51-af86-d8123afc3a45",
+        "params": {
+            "nom_app": "vendredi-0",
+            "resource_group": "vendredi-grp-0",
+            "app_repo_url": "https://github.com/OmarNouih/MediChain-DApp.git",
+            "app_repo_branch": "master",
+            "description": "python app 2",
+            "location": "francecentral",
+            "app_type": "web_app",
+            "app_language": "python",
+            "python_version": "3.11",
+            "startup_file": "app.py"
+        }
+    },
+    {
+        "id": "5914ef59-c1e6-467a-8dbd-0ee5b73224c9",
+        "params": {
+            "nom_app": "samedi-0",
+            "resource_group": "samedi-grp-0",
+            "app_repo_url": "https://github.com/miguelgrinberg/microblog.git",
+            "app_repo_branch": "main",
+            "description": "python app 3",
+            "location": "francecentral",
+            "app_type": "web_app",
+            "app_language": "python",
+            "python_version": "3.11",
+            "startup_file": "microblog.py"
+        }
+    },
+    {
+        "id": "d541db66-a5da-44f8-b9fc-57fef176d07d",
+        "params": {
+            "nom_app": "samedi-1",
+            "resource_group": "samedi-grp-1",
+            "app_repo_url": "https://github.com/miguelgrinberg/microblog.git",
+            "app_repo_branch": "main",
+            "description": "python app 3",
+            "location": "francecentral",
+            "app_type": "web_app",
+            "app_language": "python",
+            "python_version": "3.11",
+            "startup_file": "microblog.py"
+        }
+    },
+    {
+        "id": "44e362e0-f24a-4b59-a360-8e45c8beb508",
+        "params": {
+            "nom_app": "samedi-2",
+            "resource_group": "samedi-grp-2",
+            "app_repo_url": "https://github.com/pallets/flask.git",
+            "app_repo_branch": "main",
+            "description": "python app 3",
+            "location": "francecentral",
+            "app_type": "web_app",
+            "app_language": "python",
+            "python_version": "3.11",
+            "startup_file": "examples/tutorial/flaskr/__init__.py"
+        }
+    },
+    {
+        "id": "d56678e6-188c-4cb3-a749-d88b87c121cb",
+        "params": {
+            "nom_app": "samedi-4",
+            "resource_group": "samedi-grp-4",
+            "app_repo_url": "https://github.com/microsoft/python-sample-vscode-flask-tutorial.git",
+            "app_repo_branch": "main",
+            "description": "python app 4",
+            "location": "francecentral",
+            "app_type": "web_app",
+            "app_language": "python",
+            "python_version": "3.11",
+            "startup_file": "startup.py"
+        }
+    },
+    {
+        "id": "66de65da-1915-4386-b9ec-f03269486367",
+        "params": {
+            "nom_app": "DIMANCHE-0",
+            "resource_group": "DIMANCHE-grp-0",
+            "app_repo_url": "https://github.com/Azure-Samples/python-docs-hello-world.git",
+            "app_repo_branch": "master",
+            "description": "python app bla bla",
+            "location": "centralus",
+            "app_type": "web_app",
+            "app_language": "python",
+            "python_version": "3.11",
+            "startup_file": "app.py"
+        }
+    },
+    {
+        "id": "cc1b48c2-8e96-443c-bf5a-81b03c51ad91",
+        "params": {
+            "nom_app": "DIMANCHEE-0",
+            "resource_group": "DIMANCHEE-grp-0",
+            "app_repo_url": "https://github.com/Azure-Samples/python-docs-hello-world.git",
+            "app_repo_branch": "master",
+            "description": "python app bla bla",
+            "location": "centralus",
+            "app_type": "web_app",
+            "app_language": "python",
+            "python_version": "3.11",
+            "startup_file": "app.py"
+        }
+    }
+]
