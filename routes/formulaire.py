@@ -1,98 +1,127 @@
-from fastapi import APIRouter, status
-from pydantic import BaseModel
 import uuid
-import json
-import os
-from services.playbook_generator import generer_playbook
+from typing import Literal
+
+from fastapi import APIRouter, HTTPException, status
+from pydantic import BaseModel, Field, field_validator
+
+from services.deployment_store import create_deployment, get_deployment, list_deployments
+from services.playbook_generator import REGIONS_WEB_APP, generer_playbook
 
 
 router = APIRouter()
 
-FICHIER_JSON = "data/formulaires.json"
-
 
 class FormulaireParams(BaseModel):
-    nom_app: str
-    resource_group: str
-    app_repo_url: str
-    app_repo_branch: str
-    description: str
+    nom_app: str = Field(pattern=r"^[A-Za-z0-9][A-Za-z0-9-]{1,39}$")
+    resource_group: str = Field(min_length=1, max_length=90)
+    app_repo_url: str = Field(min_length=1, max_length=250)
+    app_repo_branch: str = Field(min_length=1, max_length=100)
+    description: str = Field(default="", max_length=500)
     location: str
-    app_type: str = "web_app"  # Seulement "web_app" supporté
-    app_language: str  # "nodejs" ou "python" - OBLIGATOIRE, aucune valeur par défaut
-    python_version: str = "3.11"  # Version Python (pour apps Python)
-    startup_file: str = None  # Fichier de démarrage optionnel
+    app_type: Literal["web_app"] = "web_app"
+    app_language: Literal["nodejs", "python"]
+    python_version: Literal["3.11", "3.10", "3.9", "3.8"] = "3.11"
+    startup_file: str | None = Field(default=None, max_length=120)
 
+    @field_validator("resource_group")
+    @classmethod
+    def validate_resource_group(cls, value: str) -> str:
+        allowed_chars = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789._-()")
+        if any(char not in allowed_chars for char in value) or value.endswith("."):
+            raise ValueError("Resource group name contains unsupported characters.")
+        return value
 
-def sauvegarder_formulaire(data):
-    # Créer le répertoire s'il n'existe pas
-    os.makedirs(os.path.dirname(FICHIER_JSON), exist_ok=True)
+    @field_validator("app_repo_url")
+    @classmethod
+    def validate_repo_url(cls, value: str) -> str:
+        if not value.startswith("https://github.com/"):
+            raise ValueError("Repository URL must use https://github.com/OWNER/REPO.git format.")
 
-    # Créer le fichier s'il n'existe pas encore
-    if not os.path.exists(FICHIER_JSON):
-        with open(FICHIER_JSON, "w") as f:
-            json.dump([], f)
+        path = value.removeprefix("https://github.com/")
+        parts = path.removesuffix(".git").split("/")
+        if len(parts) != 2 or not all(parts):
+            raise ValueError("Repository URL must include an owner and repository name.")
+        return value
 
-    # Charger les configurations existantes
-    try:
-        with open(FICHIER_JSON, "r") as f:
-            content = f.read().strip()
-            if content:
-                configurations = json.loads(content)
-            else:
-                configurations = []
-    except (json.JSONDecodeError, FileNotFoundError):
-        configurations = []
+    @field_validator("app_repo_branch")
+    @classmethod
+    def validate_branch(cls, value: str) -> str:
+        if value.startswith(("-", "/", ".")) or value.endswith(("/", ".")):
+            raise ValueError("Branch name has an invalid start or end.")
+        if ".." in value or any(char in value for char in " ~^:?*[\\"):
+            raise ValueError("Branch name contains unsupported characters.")
+        return value
 
-    # Ajouter la nouvelle configuration
-    configurations.append(data)
+    @field_validator("location")
+    @classmethod
+    def validate_location(cls, value: str) -> str:
+        if value not in set(REGIONS_WEB_APP.values()):
+            raise ValueError("Unsupported Azure region.")
+        return value
 
-    # Réécrire le fichier complet avec la nouvelle liste
-    with open(FICHIER_JSON, "w") as f:
-        json.dump(configurations, f, indent=4)
+    @field_validator("startup_file")
+    @classmethod
+    def validate_startup_file(cls, value: str | None) -> str | None:
+        if value is None:
+            return value
+
+        clean_value = value.strip()
+        if not clean_value:
+            return None
+        if clean_value.startswith(("/", "\\")) or ".." in clean_value:
+            raise ValueError("Startup file cannot be absolute or contain path traversal.")
+
+        allowed_chars = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_./:-")
+        if any(char not in allowed_chars for char in clean_value):
+            raise ValueError("Startup file contains unsupported characters.")
+        return clean_value
 
 
 @router.get("/api/formulaires")
 def lister_formulaires():
-    """Récupérer tous les formulaires enregistrés"""
     try:
-        if not os.path.exists(FICHIER_JSON):
-            return {"formulaires": []}
-
-        with open(FICHIER_JSON, "r") as f:
-            content = f.read().strip()
-            if content:
-                configurations = json.loads(content)
-            else:
-                configurations = []
-
-        return {"formulaires": configurations}
-    except Exception as e:
-        return {"error": str(e), "formulaires": []}
+        return {"formulaires": list_deployments()}
+    except Exception as exc:
+        return {"error": str(exc), "formulaires": []}
 
 
-@router.post("/api/formulaire", status_code=status.HTTP_201_CREATED)
-def creer_formulaire(params: FormulaireParams):
+def create_deployment_response(params: FormulaireParams):
     formulaire_id = str(uuid.uuid4())
 
-    data_to_store = {
-        "id": formulaire_id,
-        "params": params.dict()
-    }
-
-    # Sauvegarder dans le fichier JSON
-    sauvegarder_formulaire(data_to_store)
+    create_deployment(formulaire_id, params.model_dump())
     playbook_result = generer_playbook(formulaire_id)
 
-    # Extraire le job template ID s'il existe
     job_template_id = None
     if playbook_result.get("awx_integration", {}).get("success"):
         job_template_id = playbook_result["awx_integration"]["job_template_id"]
 
     return {
-        "message": "Formulaire enregistré avec succès.",
+        "message": "Formulaire enregistre avec succes.",
         "formulaire_id": formulaire_id,
         "playbook_result": playbook_result,
         "job_template_id": job_template_id,
-        "can_deploy": job_template_id is not None
+        "can_deploy": job_template_id is not None,
     }
+
+
+@router.post("/api/formulaire", status_code=status.HTTP_201_CREATED)
+def creer_formulaire(params: FormulaireParams):
+    return create_deployment_response(params)
+
+
+@router.get("/api/deployments")
+def list_api_deployments():
+    return {"deployments": list_deployments()}
+
+
+@router.get("/api/deployments/{deployment_id}")
+def get_api_deployment(deployment_id: str):
+    deployment = get_deployment(deployment_id)
+    if not deployment:
+        raise HTTPException(status_code=404, detail="Deployment not found.")
+    return deployment
+
+
+@router.post("/api/deployments", status_code=status.HTTP_201_CREATED)
+def create_api_deployment(params: FormulaireParams):
+    return create_deployment_response(params)

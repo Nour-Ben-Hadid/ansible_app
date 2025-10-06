@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Formulaire de Déploiement Azure</title>
+    <title>Formulaire de Deploiement Azure</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -100,7 +100,7 @@
 </head>
 
 <body>
-    <h1> Formulaire de Déploiement Azure</h1>
+    <h1>Formulaire de Deploiement Azure</h1>
 
     <form id="formulaire">
         <div class="form-group">
@@ -114,12 +114,12 @@
         </div>
 
         <div class="form-group">
-            <label>URL Dépôt Git:</label>
+            <label>URL Depot Git:</label>
             <input type="text" name="app_repo_url" required>
         </div>
 
         <div class="form-group">
-            <label>Branche Dépôt:</label>
+            <label>Branche Depot:</label>
             <input type="text" name="app_repo_branch" required>
         </div>
 
@@ -128,7 +128,6 @@
             <input type="text" name="description">
         </div>
 
-        <!-- Type d'application fixé à web_app -->
         <input type="hidden" name="app_type" value="web_app">
 
         <div class="form-group" id="language_group">
@@ -142,7 +141,7 @@
         <div class="form-group" id="python_version_group" style="display: none;">
             <label>Version Python:</label>
             <select name="python_version" id="python_version">
-                <option value="3.11">Python 3.11 (Recommandé)</option>
+                <option value="3.11">Python 3.11 (Recommande)</option>
                 <option value="3.10">Python 3.10</option>
                 <option value="3.9">Python 3.9</option>
                 <option value="3.8">Python 3.8</option>
@@ -150,32 +149,32 @@
         </div>
 
         <div class="form-group" id="startup_file_group">
-            <label>Fichier d'entrée de votre application (optionnel):</label>
+            <label>Fichier d'entree de votre application (optionnel):</label>
             <input type="text" name="startup_file" id="startup_file" placeholder="ex: server.js, app.js, index.js">
-
+            <small id="startup_help"></small>
         </div>
 
         <div class="form-group">
-            <label>Région Azure:</label>
+            <label>Region Azure:</label>
             <select name="location" id="location" required>
-                <option value="">Sélectionnez une région</option>
+                <option value="">Selectionnez une region</option>
             </select>
         </div>
 
-        <button type="submit" id="submitBtn"> Créer Configuration</button>
+        <button type="submit" id="submitBtn">Creer Configuration</button>
     </form>
 
     <div id="resultat" class="results hidden"></div>
 
     <div id="deploymentSection" class="deployment-section hidden">
-        <h3> Prêt pour le Déploiement!</h3>
-        <p><strong>Job Template AWX créé avec succès!</strong></p>
-        <button id="deployBtn" class="deploy-button"> Déployer sur Azure</button>
+        <h3>Pret pour le Deploiement!</h3>
+        <p><strong>Job Template AWX cree avec succes!</strong></p>
+        <button id="deployBtn" class="deploy-button">Deployer sur Azure</button>
         <div id="deploymentResult" class="results hidden"></div>
     </div>
 
     <script>
-        let currentJobTemplateId = null;
+        let currentDeploymentId = null;
 
         const formulaire = document.getElementById('formulaire');
         const submitBtn = document.getElementById('submitBtn');
@@ -189,14 +188,86 @@
         const startupHelp = document.getElementById('startup_help');
         const locationSelect = document.getElementById('location');
 
-        // Charger les régions selon le type d'application
+        function appendTextElement(parent, tagName, text, className = '') {
+            const element = document.createElement(tagName);
+            if (className) {
+                element.className = className;
+            }
+            element.textContent = text;
+            parent.appendChild(element);
+            return element;
+        }
+
+        function appendField(parent, label, value) {
+            const paragraph = document.createElement('p');
+            const strong = document.createElement('strong');
+            strong.textContent = `${label}: `;
+            paragraph.appendChild(strong);
+            paragraph.appendChild(document.createTextNode(value || 'N/A'));
+            parent.appendChild(paragraph);
+        }
+
+        function appendLinkField(parent, label, value) {
+            const paragraph = document.createElement('p');
+            const strong = document.createElement('strong');
+            strong.textContent = `${label}: `;
+            paragraph.appendChild(strong);
+
+            if (value) {
+                const link = document.createElement('a');
+                link.href = value;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.textContent = value;
+                paragraph.appendChild(link);
+            } else {
+                paragraph.appendChild(document.createTextNode('N/A'));
+            }
+
+            parent.appendChild(paragraph);
+        }
+
+        function appendButton(parent, text, onClick) {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.textContent = text;
+            button.addEventListener('click', onClick);
+            parent.appendChild(button);
+            return button;
+        }
+
+        function setSingleMessage(container, className, message) {
+            container.className = className;
+            container.classList.remove('hidden');
+            container.replaceChildren();
+            appendTextElement(container, 'p', message);
+        }
+
+        function getErrorMessage(result, fallback) {
+            if (!result || !result.detail) {
+                return fallback;
+            }
+            if (typeof result.detail === 'string') {
+                return result.detail;
+            }
+            return JSON.stringify(result.detail);
+        }
+
+        function resetLocationOptions(message) {
+            locationSelect.replaceChildren();
+            const option = document.createElement('option');
+            option.value = '';
+            option.textContent = message;
+            locationSelect.appendChild(option);
+        }
+
         async function loadRegions(appType) {
             try {
-                locationSelect.innerHTML = '<option value="">Chargement...</option>';
+                resetLocationOptions('Chargement...');
                 const response = await fetch(`/api/regions/${appType}`);
                 const data = await response.json();
 
-                locationSelect.innerHTML = '<option value="">Sélectionnez une région</option>';
+                resetLocationOptions('Selectionnez une region');
 
                 Object.entries(data.regions).forEach(([displayName, azureCode]) => {
                     const option = document.createElement('option');
@@ -205,37 +276,32 @@
                     locationSelect.appendChild(option);
                 });
             } catch (error) {
-                console.error('Erreur lors du chargement des régions:', error);
-                locationSelect.innerHTML = '<option value="">Erreur de chargement</option>';
+                console.error('Erreur lors du chargement des regions:', error);
+                resetLocationOptions('Erreur de chargement');
             }
         }
 
-        // Écouter les changements du langage d'application
         appLanguageSelect.addEventListener('change', function () {
             updateFormFields();
         });
 
-        // Fonction pour mettre à jour les champs selon le langage
         function updateFormFields() {
             const appLanguage = appLanguageSelect.value;
             const startupFileGroup = document.getElementById('startup_file_group');
 
-            // Toujours afficher les groupes pour les Web Apps classiques
             startupFileGroup.style.display = 'block';
 
-            // Afficher/masquer la version Python selon le langage
             if (appLanguage === 'python') {
                 pythonVersionGroup.style.display = 'block';
                 startupFileInput.placeholder = 'ex: app.py, main.py, app:app, wsgi:application';
-                startupHelp.textContent = 'Spécifiez le fichier Python ou module:function (ex: app:app pour Flask). Laissez vide pour gunicorn app:app.';
+                startupHelp.textContent = 'Specifiez le fichier Python ou module:function. Laissez vide pour gunicorn app:app.';
             } else {
                 pythonVersionGroup.style.display = 'none';
                 startupFileInput.placeholder = 'ex: server.js, app.js, index.js';
-                startupHelp.textContent = 'Spécifiez le fichier d\'entrée de votre application Node.js. Laissez vide pour la détection automatique.';
+                startupHelp.textContent = "Specifiez le fichier d'entree Node.js. Laissez vide pour npm start.";
             }
         }
 
-        // Charger les régions par défaut au démarrage
         window.addEventListener('DOMContentLoaded', function () {
             loadRegions('web_app');
             updateFormFields();
@@ -245,10 +311,8 @@
             e.preventDefault();
 
             submitBtn.disabled = true;
-            submitBtn.textContent = ' Création en cours...';
-            resultatDiv.className = 'results';
-            resultatDiv.classList.remove('hidden');
-            resultatDiv.innerHTML = '<p> Création du playbook et du job template AWX...</p>';
+            submitBtn.textContent = 'Creation en cours...';
+            setSingleMessage(resultatDiv, 'results', 'Creation du playbook et du job template AWX...');
 
             try {
                 const data = {};
@@ -266,61 +330,64 @@
 
                 if (response.ok) {
                     resultatDiv.className = 'results success';
+                    resultatDiv.classList.remove('hidden');
+                    resultatDiv.replaceChildren();
+
                     const deploymentDetails = result.playbook_result?.deployment_details || {};
                     const appTypeDisplay = 'Web App classique';
                     const languageDisplay = data.app_language === 'python' ? 'Python' : 'Node.js';
-                    resultatDiv.innerHTML = `
-                        <h4> Configuration créée avec succès!</h4>
-                        <p><strong>ID Formulaire:</strong> ${result.formulaire_id}</p>
-                        <p><strong>Application:</strong> ${data.nom_app}</p>
-                        <p><strong>Type:</strong> ${appTypeDisplay}</p>
-                        <p><strong>Langage:</strong> ${languageDisplay}</p>
-                        ${data.python_version && data.app_language === 'python' ? `<p><strong>Version Python:</strong> ${data.python_version}</p>` : ''}
-                        <p><strong>Nom Unique Azure:</strong> ${deploymentDetails.app_name || 'N/A'}</p>
-                        <p><strong>Région:</strong> ${data.location}</p>
-                        ${data.startup_file ? `<p><strong>Fichier de Démarrage:</strong> ${data.startup_file}</p>` : ''}
-                        <p><strong>URL App:</strong> <a href="${result.playbook_result?.app_url || '#'}" target="_blank">${result.playbook_result?.app_url || 'N/A'}</a></p>
-                    `;
+
+                    appendTextElement(resultatDiv, 'h4', 'Configuration creee avec succes!');
+                    appendField(resultatDiv, 'ID Formulaire', result.formulaire_id);
+                    appendField(resultatDiv, 'Application', data.nom_app);
+                    appendField(resultatDiv, 'Type', appTypeDisplay);
+                    appendField(resultatDiv, 'Langage', languageDisplay);
+
+                    if (data.python_version && data.app_language === 'python') {
+                        appendField(resultatDiv, 'Version Python', data.python_version);
+                    }
+
+                    appendField(resultatDiv, 'Nom Unique Azure', deploymentDetails.app_name);
+                    appendField(resultatDiv, 'Region', data.location);
+
+                    if (data.startup_file) {
+                        appendField(resultatDiv, 'Fichier de Demarrage', data.startup_file);
+                    }
+
+                    appendLinkField(resultatDiv, 'URL App', result.playbook_result?.app_url);
 
                     if (result.can_deploy && result.job_template_id) {
-                        currentJobTemplateId = result.job_template_id;
+                        currentDeploymentId = result.formulaire_id;
                         deploymentSection.classList.remove('hidden');
-                        resultatDiv.innerHTML += `
-                            <p><strong>Job Template ID:</strong> ${result.job_template_id}</p>
-                            <p> Tout est prêt pour le déploiement!</p>
-                        `;
+                        appendField(resultatDiv, 'Job Template ID', String(result.job_template_id));
+                        appendTextElement(resultatDiv, 'p', 'Tout est pret pour le deploiement!');
                     } else {
-                        resultatDiv.innerHTML += `
-                            <p class="error">Problème avec la création du job template AWX</p>
-                        `;
+                        appendTextElement(resultatDiv, 'p', 'Probleme avec la creation du job template AWX', 'error');
                     }
                 } else {
-                    resultatDiv.className = 'results error';
-                    resultatDiv.innerHTML = `<p> Erreur: ${result.detail || 'Erreur inconnue'}</p>`;
+                    const message = getErrorMessage(result, 'Erreur inconnue');
+                    setSingleMessage(resultatDiv, 'results error', `Erreur: ${message}`);
                 }
             } catch (error) {
-                resultatDiv.className = 'results error';
-                resultatDiv.innerHTML = `<p> Erreur de connexion: ${error.message}</p>`;
+                setSingleMessage(resultatDiv, 'results error', `Erreur de connexion: ${error.message}`);
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.textContent = ' Créer Configuration';
+                submitBtn.textContent = 'Creer Configuration';
             }
         });
 
         deployBtn.addEventListener('click', async () => {
-            if (!currentJobTemplateId) {
-                alert(' Aucun job template disponible!');
+            if (!currentDeploymentId) {
+                alert('Aucun deploiement disponible!');
                 return;
             }
 
             deployBtn.disabled = true;
-            deployBtn.textContent = ' Déploiement en cours...';
-            deploymentResult.className = 'results';
-            deploymentResult.classList.remove('hidden');
-            deploymentResult.innerHTML = '<p> Lancement du déploiement AWX...</p>';
+            deployBtn.textContent = 'Deploiement en cours...';
+            setSingleMessage(deploymentResult, 'results', 'Lancement du deploiement AWX...');
 
             try {
-                const response = await fetch(`/api/launch-job/${currentJobTemplateId}`, {
+                const response = await fetch(`/api/deployments/${currentDeploymentId}/launch`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -331,24 +398,55 @@
 
                 if (response.ok) {
                     deploymentResult.className = 'results success';
-                    deploymentResult.innerHTML = `
-                        <h4> Déploiement lancé avec succès!</h4>
-                        <p><strong>Job ID:</strong> ${result.job_id}</p>
-                        <p><strong>Statut:</strong> ${result.status}</p>
-                        <p> Vous pouvez suivre le progrès dans AWX</p>
-                    `;
+                    deploymentResult.classList.remove('hidden');
+                    deploymentResult.replaceChildren();
+                    appendTextElement(deploymentResult, 'h4', 'Deploiement lance avec succes!');
+                    appendField(deploymentResult, 'Job ID', String(result.job_id));
+                    appendField(deploymentResult, 'Statut', result.status);
+                    appendTextElement(deploymentResult, 'p', 'Vous pouvez suivre le progres dans AWX.');
+                    appendButton(deploymentResult, 'Rafraichir statut', refreshDeploymentStatus);
                 } else {
-                    deploymentResult.className = 'results error';
-                    deploymentResult.innerHTML = `<p> Erreur de déploiement: ${result.detail || 'Erreur inconnue'}</p>`;
+                    const message = getErrorMessage(result, 'Erreur inconnue');
+                    setSingleMessage(deploymentResult, 'results error', `Erreur de deploiement: ${message}`);
                 }
             } catch (error) {
-                deploymentResult.className = 'results error';
-                deploymentResult.innerHTML = `<p> Erreur de connexion: ${error.message}</p>`;
+                setSingleMessage(deploymentResult, 'results error', `Erreur de connexion: ${error.message}`);
             } finally {
                 deployBtn.disabled = false;
-                deployBtn.textContent = ' Déployer sur Azure';
+                deployBtn.textContent = 'Deployer sur Azure';
             }
         });
+
+        async function refreshDeploymentStatus() {
+            if (!currentDeploymentId) {
+                return;
+            }
+
+            setSingleMessage(deploymentResult, 'results', 'Lecture du statut AWX...');
+            try {
+                const response = await fetch(`/api/deployments/${currentDeploymentId}/refresh`);
+                const result = await response.json();
+
+                if (response.ok) {
+                    deploymentResult.className = result.status === 'FAILED' ? 'results error' : 'results success';
+                    deploymentResult.classList.remove('hidden');
+                    deploymentResult.replaceChildren();
+                    appendTextElement(deploymentResult, 'h4', 'Statut du deploiement');
+                    appendField(deploymentResult, 'Statut', result.status);
+                    appendField(deploymentResult, 'Job AWX', String(result.awx_job_id || 'N/A'));
+                    appendField(deploymentResult, 'Statut AWX', result.awx?.status || 'N/A');
+                    if (result.error_message) {
+                        appendField(deploymentResult, 'Erreur', result.error_message);
+                    }
+                    appendButton(deploymentResult, 'Rafraichir statut', refreshDeploymentStatus);
+                } else {
+                    const message = getErrorMessage(result, 'Erreur inconnue');
+                    setSingleMessage(deploymentResult, 'results error', `Erreur statut: ${message}`);
+                }
+            } catch (error) {
+                setSingleMessage(deploymentResult, 'results error', `Erreur de connexion: ${error.message}`);
+            }
+        }
     </script>
 </body>
 

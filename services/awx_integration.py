@@ -1,8 +1,10 @@
-import requests
-import os
-import json
-from dotenv import load_dotenv
 import logging
+import os
+import time
+
+import requests
+from dotenv import load_dotenv
+
 
 load_dotenv()
 
@@ -12,263 +14,310 @@ logger = logging.getLogger(__name__)
 AWX_URL = os.getenv("AWX_URL")
 AWX_TOKEN = os.getenv("AWX_TOKEN")
 GIT_REPO = os.getenv("GIT_REPO")
+GIT_BRANCH = os.getenv("GIT_BRANCH", "main")
+AWX_PROJECT_NAME = os.getenv("AWX_PROJECT_NAME", "azure-generated-playbooks")
+AWX_AZURE_CREDENTIAL_NAME = os.getenv("AWX_AZURE_CREDENTIAL_NAME", "azure-service-principal")
+AWX_SCM_CREDENTIAL_NAME = os.getenv("AWX_SCM_CREDENTIAL_NAME")
+AWX_INVENTORY_ID = int(os.getenv("AWX_INVENTORY_ID", "1"))
 
-# Variables Azure du .env pour les job templates
-AZURE_SUBSCRIPTION_ID = os.getenv("AZURE_SUBSCRIPTION_ID")
-AZURE_CLIENT_ID = os.getenv("AZURE_CLIENT_ID")
-AZURE_CLIENT_SECRET = os.getenv("AZURE_CLIENT_SECRET")
-AZURE_TENANT_ID = os.getenv("AZURE_TENANT_ID")
+
+def normalize_git_repo_url(repo_url):
+    if repo_url.startswith(("https://", "http://", "git@")):
+        return repo_url
+    return f"https://{repo_url}"
+
+
+def build_headers():
+    return {
+        "Authorization": f"Bearer {AWX_TOKEN}",
+        "Content-Type": "application/json",
+    }
+
+
+def get_credential_by_name(credential_name):
+    headers = build_headers()
+
+    try:
+        response = requests.get(
+            f"{AWX_URL}/api/v2/credentials/?name={credential_name}",
+            headers=headers,
+            timeout=10,
+        )
+    except Exception as exc:
+        logger.error(f"Exception while looking up AWX credential: {str(exc)}")
+        return None
+
+    if response.status_code != 200:
+        logger.error(f"AWX credential lookup failed: {response.status_code}")
+        return None
+
+    credentials = response.json()
+    if credentials.get("count", 0) == 0:
+        return None
+
+    return credentials["results"][0]["id"]
 
 
 def get_azure_credential():
-    """Récupère le credential Azure existant dans AWX (créé manuellement)"""
+    credential_id = get_credential_by_name(AWX_AZURE_CREDENTIAL_NAME)
+    if credential_id:
+        logger.info(f"Azure credential found: ID {credential_id}")
+        return credential_id
 
-    headers = {
-        "Authorization": f"Bearer {AWX_TOKEN}",
-        "Content-Type": "application/json"
-    }
+    logger.error(f"Azure credential '{AWX_AZURE_CREDENTIAL_NAME}' not found in AWX.")
+    return None
 
-    credential_name = "azure-service-principal"
 
-    try:
-        # Récupérer le credential existant
-        response = requests.get(
-            f"{AWX_URL}/api/v2/credentials/?name={credential_name}",
-            headers=headers
-        )
-
-        if response.status_code == 200:
-            credentials = response.json()
-            if credentials["count"] > 0:
-                logger.info(
-                    f" Credential Azure trouvé: ID {credentials['results'][0]['id']}")
-                return credentials["results"][0]["id"]
-            else:
-                logger.error(
-                    f" Credential '{credential_name}' non trouvé. Veuillez le créer manuellement dans AWX.")
-                return None
-        else:
-            logger.error(
-                f" Erreur lors de la récupération du credential: {response.status_code}")
-            return None
-
-    except Exception as e:
-        logger.error(
-            f" Exception lors de la récupération du credential: {str(e)}")
+def get_scm_credential():
+    if not AWX_SCM_CREDENTIAL_NAME:
         return None
 
+    credential_id = get_credential_by_name(AWX_SCM_CREDENTIAL_NAME)
+    if credential_id:
+        logger.info(f"SCM credential found: ID {credential_id}")
+        return credential_id
 
-def create_or_get_project(app_name):
-    """Crée ou récupère le projet AWX spécifique pour cette application"""
+    logger.error(f"SCM credential '{AWX_SCM_CREDENTIAL_NAME}' not found in AWX.")
+    return None
 
-    headers = {
-        "Authorization": f"Bearer {AWX_TOKEN}",
-        "Content-Type": "application/json"
+
+def project_payload():
+    payload = {
+        "name": AWX_PROJECT_NAME,
+        "description": "Generated Azure deployment playbooks",
+        "scm_type": "git",
+        "scm_url": normalize_git_repo_url(GIT_REPO),
+        "scm_branch": GIT_BRANCH,
+        "scm_update_on_launch": True,
     }
 
-    # Nom de projet unique par application
-    project_name = f"project-{app_name}"
+    scm_credential_id = get_scm_credential()
+    if scm_credential_id:
+        payload["credential"] = scm_credential_id
+
+    return payload
+
+
+def sync_project(project_id):
+    headers = build_headers()
+    response = requests.post(
+        f"{AWX_URL}/api/v2/projects/{project_id}/update/",
+        headers=headers,
+        timeout=10,
+    )
+
+    if response.status_code != 202:
+        logger.warning(f"Project sync launch failed: {response.status_code}")
+        return False
+
+    update_url = response.json().get("url")
+    if not update_url:
+        logger.warning("Project sync did not return an update URL.")
+        return False
+
+    for attempt in range(60):
+        status_response = requests.get(
+            f"{AWX_URL}{update_url}",
+            headers=headers,
+            timeout=10,
+        )
+        if status_response.status_code != 200:
+            logger.warning(f"Project sync status failed: {status_response.status_code}")
+            return False
+
+        project_update = status_response.json()
+        status = project_update.get("status")
+        if status == "successful":
+            logger.info("Project sync completed successfully.")
+            return True
+        if status in {"failed", "error", "canceled"}:
+            logger.error(f"Project sync failed with status: {status}")
+            return False
+
+        logger.info(f"Project sync pending ({attempt + 1}/60): {status}")
+        time.sleep(2)
+
+    logger.warning("Project sync timed out.")
+    return False
+
+
+def create_or_get_project():
+    headers = build_headers()
+    payload = project_payload()
 
     try:
-        # Vérifier si le projet existe déjà
         response = requests.get(
-            f"{AWX_URL}/api/v2/projects/?name={project_name}",
-            headers=headers
-        )
-
-        if response.status_code == 200:
-            projects = response.json()
-            if projects["count"] > 0:
-                logger.info(
-                    f" Projet existant trouvé pour {app_name}: ID {projects['results'][0]['id']}")
-                return projects["results"][0]["id"]
-
-        # Créer un nouveau projet spécifique à cette application
-        logger.info(f" Création d'un nouveau projet AWX pour {app_name}...")
-        project_data = {
-            "name": project_name,
-            "description": f"Projet automatique pour l'application {app_name}",
-            "scm_type": "git",
-            "scm_url": f"https://{GIT_REPO}",
-            "scm_branch": "main",
-            "scm_update_on_launch": True
-        }
-
-        response = requests.post(
-            f"{AWX_URL}/api/v2/projects/",
+            f"{AWX_URL}/api/v2/projects/?name={AWX_PROJECT_NAME}",
             headers=headers,
-            json=project_data
+            timeout=10,
         )
 
-        if response.status_code == 201:
-            project = response.json()
-            logger.info(f" Projet créé avec succès! ID: {project['id']}")
-
-            # Synchroniser le projet pour récupérer les playbooks
-            sync_response = requests.post(
-                f"{AWX_URL}/api/v2/projects/{project['id']}/update/",
-                headers=headers
-            )
-
-            if sync_response.status_code == 202:
-                logger.info(f" Synchronisation du projet lancée...")
-                # Attendre la synchronisation avec vérification du statut
-                import time
-                for i in range(10):  # Attendre jusqu'à 10 secondes
-                    time.sleep(1)
-                    status_response = requests.get(
-                        f"{AWX_URL}/api/v2/projects/{project['id']}/",
-                        headers=headers
-                    )
-                    if status_response.status_code == 200:
-                        project_status = status_response.json()
-                        if project_status.get("status") == "successful":
-                            logger.info(
-                                f" Synchronisation terminée avec succès!")
-                            break
-                        elif project_status.get("status") == "failed":
-                            logger.error(f" Synchronisation échouée!")
-                            break
-                    logger.info(f" Synchronisation en cours... ({i+1}/10)")
-                else:
-                    logger.warning(
-                        f" Synchronisation timeout après 10 secondes")
-            else:
-                logger.warning(
-                    f" Synchronisation échouée: {sync_response.status_code}")
-
-            return project["id"]
-        else:
-            logger.error(
-                f" Erreur création projet: {response.status_code} - {response.text}")
+        if response.status_code != 200:
+            logger.error(f"Project lookup failed: {response.status_code}")
             return None
 
-    except Exception as e:
-        logger.error(f" Exception lors de la création du projet: {str(e)}")
+        projects = response.json()
+        if projects.get("count", 0) > 0:
+            project_id = projects["results"][0]["id"]
+            patch_response = requests.patch(
+                f"{AWX_URL}/api/v2/projects/{project_id}/",
+                headers=headers,
+                json=payload,
+                timeout=10,
+            )
+            if patch_response.status_code not in {200, 202}:
+                logger.error(f"Project update failed: {patch_response.status_code}")
+                return None
+
+            sync_project(project_id)
+            return project_id
+
+        create_response = requests.post(
+            f"{AWX_URL}/api/v2/projects/",
+            headers=headers,
+            json=payload,
+            timeout=10,
+        )
+
+        if create_response.status_code != 201:
+            logger.error(f"Project creation failed: {create_response.status_code}")
+            return None
+
+        project = create_response.json()
+        project_id = project["id"]
+        sync_project(project_id)
+        return project_id
+    except Exception as exc:
+        logger.error(f"Exception while creating or getting AWX project: {str(exc)}")
         return None
 
 
 def create_job_template(app_name, playbook_filename):
-    """Crée un job template dans AWX pour le playbook généré avec variables Azure"""
-
-    logger.info(f" Tentative de création du job template AWX pour {app_name}")
-    logger.info(f"AWX URL: {AWX_URL}")
+    logger.info(f"Creating AWX job template for {app_name}")
     logger.info(f"Playbook: {playbook_filename}")
 
-    # D'abord créer/récupérer le projet spécifique à cette application
-    project_id = create_or_get_project(app_name)
+    project_id = create_or_get_project()
     if not project_id:
         return {
             "success": False,
-            "error": f"Impossible de créer ou récupérer le projet AWX pour {app_name}"
+            "error": "Impossible de creer ou recuperer le projet AWX partage.",
         }
 
-    headers = {
-        "Authorization": f"Bearer {AWX_TOKEN}",
-        "Content-Type": "application/json"
-    }
+    azure_credential_id = get_azure_credential()
+    if not azure_credential_id:
+        return {
+            "success": False,
+            "error": "Credential Azure AWX introuvable.",
+        }
 
-    # Variables Azure à injecter dans le job template
-    azure_extra_vars = {
-        "azure_client_id": AZURE_CLIENT_ID,
-        "azure_secret": AZURE_CLIENT_SECRET,
-        "azure_tenant": AZURE_TENANT_ID,
-        "azure_subscription_id": AZURE_SUBSCRIPTION_ID
-    }
-
-    # Données du job template avec variables Azure
+    headers = build_headers()
     job_template_data = {
         "name": f"Deploy-{app_name}",
         "description": f"Deployment job for {app_name}",
         "playbook": playbook_filename,
         "project": project_id,
-        "inventory": 1,
+        "inventory": AWX_INVENTORY_ID,
         "job_type": "run",
         "verbosity": 1,
-        "extra_vars": json.dumps(azure_extra_vars)  # Convertir en JSON string
+        "credentials": [azure_credential_id],
+        "extra_vars": "{}",
     }
 
     try:
-        logger.info(f" Envoi de la requête vers AWX...")
-        # Créer le job template
         response = requests.post(
             f"{AWX_URL}/api/v2/job_templates/",
             headers=headers,
             json=job_template_data,
-            timeout=10
+            timeout=10,
         )
 
-        logger.info(f" Réponse AWX: Status {response.status_code}")
-        logger.info(f" Contenu réponse: {response.text}")
-
+        logger.info(f"AWX job template response: {response.status_code}")
         if response.status_code == 201:
             job_template = response.json()
-            job_template_id = job_template['id']
-            logger.info(
-                f" Job template créé avec succès! ID: {job_template_id}")
-
             return {
                 "success": True,
-                "job_template_id": job_template_id,
+                "job_template_id": job_template["id"],
                 "job_template_name": job_template["name"],
-                "message": f"Job template créé avec succès avec variables Azure"
-            }
-        else:
-            logger.error(
-                f" Erreur AWX: {response.status_code} - {response.text}")
-            return {
-                "success": False,
-                "error": f"Erreur AWX: {response.status_code} - {response.text}"
+                "message": "Job template cree avec succes avec credential Azure AWX.",
             }
 
-    except Exception as e:
-        logger.error(f" Exception lors de la connexion AWX: {str(e)}")
         return {
             "success": False,
-            "error": f"Erreur de connexion AWX: {str(e)}"
+            "error": f"Erreur AWX: {response.status_code}",
+        }
+    except Exception as exc:
+        logger.error(f"Exception while creating AWX job template: {str(exc)}")
+        return {
+            "success": False,
+            "error": f"Erreur de connexion AWX: {str(exc)}",
         }
 
 
 def launch_job(job_template_id):
-    """Lance un job à partir du job template"""
-
-    headers = {
-        "Authorization": f"Bearer {AWX_TOKEN}",
-        "Content-Type": "application/json"
-    }
+    headers = build_headers()
 
     try:
-        logger.info(f" Lancement du job template ID: {job_template_id}")
+        logger.info(f"Launching AWX job template ID: {job_template_id}")
         response = requests.post(
             f"{AWX_URL}/api/v2/job_templates/{job_template_id}/launch/",
-            headers=headers
+            headers=headers,
+            timeout=10,
         )
 
-        logger.info(f" Réponse AWX Launch: Status {response.status_code}")
-        logger.info(f" Contenu réponse: {response.text}")
-
+        logger.info(f"AWX launch response: {response.status_code}")
         if response.status_code == 201:
             job = response.json()
-            logger.info(f" Job lancé avec succès! ID: {job['id']}")
             return {
                 "success": True,
                 "job_id": job["id"],
                 "status": job.get("status", "pending"),
                 "job_name": job.get("name", "Unknown"),
                 "url": job.get("url", ""),
-                "message": "Job lancé avec succès"
-            }
-        else:
-            logger.error(
-                f" Erreur lors du lancement: {response.status_code} - {response.text}")
-            return {
-                "success": False,
-                "error": f"Erreur lors du lancement: {response.status_code} - {response.text}"
+                "message": "Job lance avec succes",
             }
 
-    except Exception as e:
-        logger.error(f" Exception lors du lancement: {str(e)}")
         return {
             "success": False,
-            "error": f"Erreur de connexion: {str(e)}"
+            "error": f"Erreur lors du lancement: {response.status_code}",
+        }
+    except Exception as exc:
+        logger.error(f"Exception while launching AWX job: {str(exc)}")
+        return {
+            "success": False,
+            "error": f"Erreur de connexion: {str(exc)}",
+        }
+
+
+def get_job_status(job_id):
+    headers = build_headers()
+
+    try:
+        response = requests.get(
+            f"{AWX_URL}/api/v2/jobs/{job_id}/",
+            headers=headers,
+            timeout=10,
+        )
+
+        logger.info(f"AWX job status response: {response.status_code}")
+        if response.status_code == 200:
+            job = response.json()
+            return {
+                "success": True,
+                "job_id": job["id"],
+                "status": job.get("status"),
+                "failed": job.get("failed", False),
+                "finished": job.get("finished"),
+                "started": job.get("started"),
+                "url": job.get("url", ""),
+            }
+
+        return {
+            "success": False,
+            "error": f"Erreur statut job AWX: {response.status_code}",
+        }
+    except Exception as exc:
+        logger.error(f"Exception while reading AWX job status: {str(exc)}")
+        return {
+            "success": False,
+            "error": f"Erreur de connexion: {str(exc)}",
         }
