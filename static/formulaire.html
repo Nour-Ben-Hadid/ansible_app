@@ -362,7 +362,8 @@
                         appendField(resultatDiv, 'Job Template ID', String(result.job_template_id));
                         appendTextElement(resultatDiv, 'p', 'Tout est pret pour le deploiement!');
                     } else {
-                        appendTextElement(resultatDiv, 'p', 'Probleme avec la creation du job template AWX', 'error');
+                        const awxError = result.playbook_result?.awx_integration?.error || 'Erreur AWX inconnue';
+                        appendTextElement(resultatDiv, 'p', `Probleme avec la creation du job template AWX: ${awxError}`, 'error');
                     }
                 } else {
                     const message = getErrorMessage(result, 'Erreur inconnue');

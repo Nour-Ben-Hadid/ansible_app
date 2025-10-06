@@ -199,8 +199,8 @@ def generate_python_web_app_playbook(config, unique_app_name):
                 "python_version": python_version,
                 "azure_subscription_id": "{{ lookup('env', 'AZURE_SUBSCRIPTION_ID') }}",
                 "azure_client_id": "{{ lookup('env', 'AZURE_CLIENT_ID') }}",
-                "azure_secret": "{{ lookup('env', 'AZURE_SECRET') }}",
-                "azure_tenant": "{{ lookup('env', 'AZURE_TENANT') }}"
+                "azure_secret": "{{ lookup('env', 'AZURE_SECRET') or lookup('env', 'AZURE_CLIENT_SECRET') }}",
+                "azure_tenant": "{{ lookup('env', 'AZURE_TENANT') or lookup('env', 'AZURE_TENANT_ID') }}"
             },
             "tasks": [
                 {
@@ -496,8 +496,8 @@ def generate_nodejs_web_app_playbook(config, unique_app_name):
                 "startup_command": startup_command,
                 "azure_subscription_id": "{{ lookup('env', 'AZURE_SUBSCRIPTION_ID') }}",
                 "azure_client_id": "{{ lookup('env', 'AZURE_CLIENT_ID') }}",
-                "azure_secret": "{{ lookup('env', 'AZURE_SECRET') }}",
-                "azure_tenant": "{{ lookup('env', 'AZURE_TENANT') }}"
+                "azure_secret": "{{ lookup('env', 'AZURE_SECRET') or lookup('env', 'AZURE_CLIENT_SECRET') }}",
+                "azure_tenant": "{{ lookup('env', 'AZURE_TENANT') or lookup('env', 'AZURE_TENANT_ID') }}"
             },
             "tasks": [
                 {

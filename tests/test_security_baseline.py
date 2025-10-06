@@ -63,7 +63,7 @@ class SecurityBaselineTests(unittest.TestCase):
             captured_payload.update(json)
             return Response()
 
-        with patch.object(awx_integration, "create_or_get_project", return_value=10), \
+        with patch.object(awx_integration, "create_or_get_project", return_value={"success": True, "project_id": 10}), \
                 patch.object(awx_integration, "get_azure_credential", return_value=42), \
                 patch.object(awx_integration.requests, "post", side_effect=fake_post):
             result = awx_integration.create_job_template("demo-app", "demo-app_playbook.yml")
