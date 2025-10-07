@@ -8,14 +8,14 @@ The project is designed as a DevOps portfolio app that demonstrates how FastAPI,
 
 ```mermaid
 flowchart LR
-    U[Browser UI] --> API[FastAPI API]
-    API --> DB[(SQLite deployment store)]
-    API --> GEN[Playbook generator]
-    GEN --> WT[Local playbook worktree]
-    WT --> GIT[Generated playbook Git repo]
-    API --> AWX[AWX API]
+    U["Browser UI"] --> API["FastAPI API"]
+    API --> DB["SQLite deployment store"]
+    API --> GEN["Playbook generator"]
+    GEN --> WT["Local playbook worktree"]
+    WT --> GIT["Generated playbook Git repo"]
+    API --> AWX["AWX API"]
     AWX --> GIT
-    AWX --> AZ[Azure Linux App Service]
+    AWX --> AZ["Azure Linux App Service"]
 ```
 
 ## What Is Included
