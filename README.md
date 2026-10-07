@@ -1,4 +1,4 @@
-# Ansible App
+# Azure AWX Ansible Deployer
 
 Ansible App is a FastAPI-based deployment automation project for Azure Linux App Service. It takes a web app deployment request from a browser form, generates an Ansible playbook, stores deployment state locally, pushes the playbook to a Git repository, synchronizes that repository with AWX, creates an AWX Job Template, and launches the deployment job.
 
